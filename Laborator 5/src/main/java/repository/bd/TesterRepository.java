@@ -1,8 +1,9 @@
-package repository;
+package repository.bd;
 
 
 
-import domain.Programmer;
+import domain.Tester;
+import repository.ITesterRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,18 +12,18 @@ import java.util.List;
 import java.util.Properties;
 
 
-public class ProgrammerRepository  implements IProgrammerRepository  {
+public class TesterRepository  implements ITesterRepository {
     private JdbcUtils dbUtils;
-    
-    public ProgrammerRepository(Properties props) {
+
+    public TesterRepository(Properties props) {
         dbUtils=new JdbcUtils(props);
     }
 
 
     @Override
-    public void add(Programmer elem) {
+    public void add(Tester elem) {
         Connection connection= dbUtils.getConnection();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("insert into Programmers (first_name,last_name,username,password) values (?,?,?,?)")){
+        try(PreparedStatement preparedStatement= connection.prepareStatement("insert into Testers (first_name,last_name,username,password) values (?,?,?,?)")){
             preparedStatement.setString(1, elem.getFirstName());
             preparedStatement.setString(2, elem.getLastName());
             preparedStatement.setString(3, elem.getUsername());
@@ -39,7 +40,7 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
     @Override
     public void delete(Integer id) {
         Connection connection= dbUtils.getConnection();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("delete from Programmers where id=?")){
+        try(PreparedStatement preparedStatement= connection.prepareStatement("delete from Testers where id=?")){
             preparedStatement.setInt(1,id);
             int result= preparedStatement.executeUpdate();
         }
@@ -47,13 +48,13 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
         {
             System.err.println("Error DB "+ ex);
         }
-         
+
     }
 
     @Override
-    public Programmer findById(Integer id) {
+    public Tester findById(Integer id) {
         Connection connection= dbUtils.getConnection();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Programmers where id=?")){
+        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Testers where id=?")){
             preparedStatement.setInt(1,id);
             try(ResultSet resultSet= preparedStatement.executeQuery()){
                 if(resultSet.next())
@@ -63,9 +64,9 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
                     String lastName= resultSet.getString("last_name");
                     String username= resultSet.getString("username");
                     String password= resultSet.getString("password");
-                    Programmer programmer=new Programmer(firstName,lastName,username,password);
-                    programmer.setId(id1);
-                    return programmer;
+                    Tester Tester=new Tester(firstName,lastName,username,password);
+                    Tester.setId(id1);
+                    return Tester;
                 }
             }
         }catch (SQLException e)
@@ -76,9 +77,9 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
     }
 
     @Override
-    public void update(Programmer elem, Integer integer) {
+    public void update(Tester elem, Integer integer) {
         Connection connection= dbUtils.getConnection();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("update Programmers  set first_name=?, last_name=?, username=?, password=? where id=?")){
+        try(PreparedStatement preparedStatement= connection.prepareStatement("update Testers  set first_name=?, last_name=?, username=?, password=? where id=?")){
             preparedStatement.setString(1, elem.getFirstName());
             preparedStatement.setString(2, elem.getLastName());
             preparedStatement.setString(3, elem.getUsername());
@@ -93,10 +94,10 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
     }
 
     @Override
-    public Collection<Programmer> getAll() {
+    public Collection<Tester> getAll() {
         Connection connection= dbUtils.getConnection();
-        List<Programmer> programmers=new ArrayList<>();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Programmers")){
+        List<Tester> Testers=new ArrayList<>();
+        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Testers")){
             try(ResultSet resultSet= preparedStatement.executeQuery()){
                 while(resultSet.next())
                 {
@@ -105,22 +106,22 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
                     String lastName= resultSet.getString("last_name");
                     String username= resultSet.getString("username");
                     String password= resultSet.getString("password");
-                    Programmer programmer=new Programmer(firstName,lastName,username,password);
-                    programmer.setId(id1);
-                    programmers.add(programmer);
+                    Tester Tester=new Tester(firstName,lastName,username,password);
+                    Tester.setId(id1);
+                    Testers.add(Tester);
                 }
             }
         }catch (SQLException e)
         {
             System.err.println("Error DB "+e);
         }
-        return programmers;
+        return Testers;
     }
 
     @Override
-    public Programmer findOneByUsername(String username) {
+    public Tester findOneByUsername(String username) {
         Connection connection= dbUtils.getConnection();
-        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Programmers where username=?")){
+        try(PreparedStatement preparedStatement= connection.prepareStatement("select * from Testers where username=?")){
             preparedStatement.setString(1,username);
             try(ResultSet resultSet= preparedStatement.executeQuery()){
                 if(resultSet.next())
@@ -129,9 +130,9 @@ public class ProgrammerRepository  implements IProgrammerRepository  {
                     String firstName= resultSet.getString("first_name");
                     String lastName= resultSet.getString("last_name");
                     String password= resultSet.getString("password");
-                    Programmer programmer=new Programmer(firstName,lastName,username,password);
-                    programmer.setId(id1);
-                    return programmer;
+                    Tester Tester=new Tester(firstName,lastName,username,password);
+                    Tester.setId(id1);
+                    return Tester;
                 }
             }
         }catch (SQLException e)

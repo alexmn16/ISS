@@ -13,6 +13,9 @@ public class Tester extends Entity<Integer>{
         this.lastName = lastName;
     }
 
+    public Tester() {
+    }
+
     public String getUsername() {
         return username;
     }

@@ -1,4 +1,4 @@
-package repository;
+package repository.bd;
 
 
 import java.sql.Connection;

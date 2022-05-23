@@ -1,8 +1,11 @@
-import domain.Programmer;
+import repository.IBugRepository;
 import repository.IProgrammerRepository;
 import repository.ITesterRepository;
-import repository.ProgrammerRepository;
-import repository.TesterRepository;
+import repository.bd.ProgrammerRepository;
+import repository.bd.TesterRepository;
+import repository.hibernate.BugHbmRepository;
+import repository.hibernate.ProgrammerHbmRepository;
+import repository.hibernate.TesterHbmRepository;
 import service.Service;
 
 import java.io.FileReader;
@@ -23,9 +26,10 @@ public class Main {
             System.out.println("Cannot find bd.config.properties "+e);
         }
 
-        IProgrammerRepository programmerRepository = new ProgrammerRepository(props);
-        ITesterRepository testerRepository = new TesterRepository(props);
-        service = new Service(programmerRepository, testerRepository);
+        IProgrammerRepository programmerRepository = new ProgrammerHbmRepository();
+        ITesterRepository testerRepository = new TesterHbmRepository();
+        IBugRepository bugRepository = new BugHbmRepository();
+        service = new Service(programmerRepository, testerRepository, bugRepository);
 
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.main(args);

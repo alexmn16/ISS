@@ -15,7 +15,8 @@ public class MainWindowProgrammer extends Application {
         URL fxmlLocation = getClass().getResource("mainProgrammer.fxml");
         FXMLLoader loader = new FXMLLoader(fxmlLocation);
         AnchorPane root=loader.load();
-        MainControllerProgrammer controller=loader.getController();
+        MainControllerProgrammer controller= loader.getController();
+
         controller.setService(Main.getService());
         controller.setProgrammer(programmer);
         Scene scene = new Scene(root);

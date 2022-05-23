@@ -13,6 +13,9 @@ public class Programmer extends Entity<Integer>{
         this.lastName = lastName;
     }
 
+    public Programmer() {
+    }
+
     public String getUsername() {
         return username;
     }

@@ -27,10 +27,7 @@ public class LoginController {
     @FXML
     private TextField UsernameTextField;
 
-    @FXML
-    void initialize()
-    {
-    }
+
 
 
     @FXML
